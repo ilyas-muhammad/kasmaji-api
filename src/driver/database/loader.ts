@@ -1,7 +1,10 @@
+/* eslint-disable import/no-dynamic-require */
+/* eslint-disable global-require */
 import * as path from 'path';
 import { isNil } from 'ramda';
-import { Sequelize } from 'sequelize';
+import { Sequelize, DataTypes } from 'sequelize';
 import { DbConfigItemType } from './config';
+import { log } from '../../helper/logger';
 
 export default (db: DbConfigItemType, files: string[]): any => {
   const sequelize = new Sequelize(db.db, db.username, db.password, {
@@ -16,10 +19,20 @@ export default (db: DbConfigItemType, files: string[]): any => {
     logging: db.logging,
   });
 
+  sequelize.authenticate()
+    .then(() => {
+      log('info', 'Connected to DB');
+    })
+    .catch((e) => {
+      log('error', 'error db connection', e);
+
+      process.exit(0);
+    });
+
   const dir: string = `${__dirname}/${db.ns}`;
 
   const models = files
-    .map((file) => sequelize.import(path.join(dir, file)))
+    .map((file) => require(path.join(dir, file))(sequelize, DataTypes))
     .reduce((result, model) => ({
       ...result,
       [model.name]: model,

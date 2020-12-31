@@ -2,23 +2,23 @@ import { Sequelize } from 'sequelize';
 import dbConfig from './config';
 import loader from './loader';
 
-interface LegacyType {
+interface MainType {
   sequelize: any;
   events: any;
 }
 
-const legacy: LegacyType = loader(dbConfig, [
+const main: MainType = loader(dbConfig, [
   'events',
 ]);
 
 interface ModelsType {
   Sequelize: any;
-  legacy: LegacyType;
+  main: MainType;
 }
 
 const models: ModelsType = {
   Sequelize,
-  legacy,
+  main,
 };
 
 export default models;

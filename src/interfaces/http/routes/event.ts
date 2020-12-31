@@ -1,18 +1,26 @@
 import express, { Request, Response } from 'express';
-import { body, validationResult } from 'express-validator';
+import validator from './validation/event';
+import eventBiz from '../../../domain/event/business';
 
 export default () => {
   const router = express.Router();
 
   router
     .route('/')
-    .post(
-      body('title').isLength({ min: 5 }),
+    .get(
       async (req: Request, res: Response) => {
-        const errors = validationResult(req);
-        if (!errors.isEmpty()) {
-          return res.status(400).json({ errors: errors.array() });
-        }
+        const result = await eventBiz.getEvents();
+        const statusCode = (!result.status) ? 500 : 200;
+
+        return res.status(statusCode).json(result);
+      },
+    );
+
+  router
+    .route('/')
+    .post(
+      validator.createEvent,
+      async (req: Request, res: Response) => {
         const { tid } = res.locals;
 
         const result = {

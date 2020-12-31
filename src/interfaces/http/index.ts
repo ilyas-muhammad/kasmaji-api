@@ -1,10 +1,12 @@
 import express from 'express';
+import dotenv from 'dotenv';
 import cors from 'cors';
 import * as uuid from 'uuid';
 import bodyParser from 'body-parser';
 import { log } from '../../helper/logger';
 import routes from './routes';
 
+dotenv.config({ path: `${__dirname}/.env` });
 const app = express();
 const tid = uuid.v4();
 
