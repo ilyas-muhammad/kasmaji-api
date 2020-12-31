@@ -1,30 +1,34 @@
 import express from 'express';
 import cors from 'cors';
+import * as uuid from 'uuid';
+import bodyParser from 'body-parser';
 import { log } from '../../helper/logger';
-import verificationBiz from '../../domain/verification';
+import routes from './routes';
 
 const app = express();
+const tid = uuid.v4();
+
+app.use((req, res, next) => {
+  res.header('Access-Control-Allow-Origin', '*');
+  res.header(
+    'Access-Control-Allow-Headers',
+    'Origin, X-Requested-With, Content-Type, Accept,Authorization',
+  );
+  res.header('Access-Control-Allow-Methods', 'PUT, POST, GET, DELETE, OPTIONS');
+  res.header('Kasmaji-tid', tid);
+  res.locals.tid = tid;
+
+  next();
+});
+
 app.use(cors());
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json({ limit: '3mb', type: 'application/json' }));
 
-app.get('/', (_, res) => {
-  res.send('Blys Verification API');
-});
-
-app.post('/', async (req, res) => {
-  log('info', 'client-request', req.body);
-  const {
-    code,
-    status,
-    message,
-  } = await verificationBiz(req);
-
-  res.status(code).json({ status, message });
-});
+routes(app);
 
 app.set('port', (process.env.PORT || 4000));
 
 app.listen(app.get('port'), () => {
-  log('info', `Server is running on PORT: ${app.get('port')}`);
+  log('info', `Server is running on PORT: ${app.get('port')}`, { tid });
 });
