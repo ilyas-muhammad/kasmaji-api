@@ -1,7 +1,7 @@
 {
-  "name": "blys-verification-api",
+  "name": "kasmaji-api",
   "version": "1.0.0",
-  "description": "Verification API Server",
+  "description": "Kasmaji API",
   "main": "index.js",
   "scripts": {
     "test": "jest --detectOpenHandles --colors",
@@ -15,8 +15,12 @@
   "license": "ISC",
   "devDependencies": {
     "@types/cors": "^2.8.8",
+    "@types/express": "^4.17.4",
     "@types/jest": "^25.2.1",
     "@types/ramda": "^0.27.32",
+    "@types/require-dir": "^1.0.1",
+    "@types/sequelize": "^4.28.9",
+    "@types/uuid": "^8.3.0",
     "@typescript-eslint/eslint-plugin": "^2.26.0",
     "@typescript-eslint/parser": "^2.26.0",
     "eslint": "^6.8.0",
@@ -31,11 +35,17 @@
     "typescript": "^3.8.3"
   },
   "dependencies": {
-    "@types/express": "^4.17.4",
+    "body-parser": "^1.19.0",
+    "change-case": "^4.1.2",
     "cors": "^2.8.5",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
+    "express-validator": "^6.9.0",
+    "mysql": "^2.18.1",
     "ramda": "^0.27.1",
+    "require-dir": "^1.2.0",
+    "sequelize": "^6.3.5",
+    "uuid": "^8.3.2",
     "winston": "^3.3.3",
     "winston-transport": "^4.4.0"
   },
