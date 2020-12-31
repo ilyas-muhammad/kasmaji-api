@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "jest --detectOpenHandles --colors",
-    "lint": "eslint src/*/*/*/** tests/** --fix --cache",
+    "lint": "eslint src/*/*/*/*/** tests/** --fix --cache",
     "build": "rimraf ./build && tsc",
     "dev": "ts-node-dev --inspect --respawn --transpile-only src/interfaces/http/index.ts",
     "start": "node -r dotenv/config build/interfaces/http/index.js",
@@ -42,6 +42,7 @@
     "express": "^4.17.1",
     "express-validator": "^6.9.0",
     "mysql": "^2.18.1",
+    "mysql2": "^2.2.5",
     "ramda": "^0.27.1",
     "require-dir": "^1.2.0",
     "sequelize": "^6.3.5",
