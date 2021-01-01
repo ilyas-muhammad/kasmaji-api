@@ -1,5 +1,5 @@
 import { Sequelize } from 'sequelize';
-import dbConfig from './config';
+import dbConfig from './dbConfig';
 import loader from './loader';
 
 interface MainType {

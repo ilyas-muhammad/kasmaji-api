@@ -7,7 +7,7 @@
     "test": "jest --detectOpenHandles --colors",
     "lint": "eslint src/*/*/*/*/** tests/** --fix --cache",
     "build": "rimraf ./build && tsc",
-    "dev": "ts-node-dev --inspect --respawn --transpile-only src/interfaces/http/index.ts",
+    "dev": "NODE_ENV=development ts-node-dev --inspect --respawn --transpile-only src/interfaces/http/index.ts",
     "start": "node -r dotenv/config build/interfaces/http/index.js",
     "build-and-start": "yarn build && node ./build/interfaces/http/index.js",
     "db:migrate": "NODE_ENV=development npx sequelize-cli db:migrate"
