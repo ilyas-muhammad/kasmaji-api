@@ -3,7 +3,7 @@
 import * as path from 'path';
 import { isNil } from 'ramda';
 import { Sequelize, DataTypes } from 'sequelize';
-import { DbConfigItemType } from './config';
+import { DbConfigItemType } from './dbConfig';
 import { log } from '../../helper/logger';
 
 export default (db: DbConfigItemType, files: string[]): any => {

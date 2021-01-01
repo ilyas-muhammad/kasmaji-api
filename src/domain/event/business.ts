@@ -6,7 +6,12 @@ const getEvents = async (filterCriteria?: FindAllFilter) => {
 
   if (!dataFound) return { status: false, message: 'DB Error' };
 
-  return { status: true, data: dataFound };
+  const mappedData = dataFound.map((item) => ({
+    imageUrl: process.env.APP_URI + item.dataValues.image,
+    ...item.dataValues,
+  }));
+
+  return { status: true, data: mappedData };
 };
 
 const createEvent = async (params: SaveParams) => {

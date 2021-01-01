@@ -23,6 +23,7 @@ app.use((req, res, next) => {
   next();
 });
 
+app.use(express.static('public'));
 app.use(cors());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json({ limit: '3mb', type: 'application/json' }));
