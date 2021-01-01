@@ -14,6 +14,14 @@ const getEvents = async (filterCriteria?: FindAllFilter) => {
   return { status: true, data: mappedData };
 };
 
+const getEventByUUID = async (filterCriteria?: FindAllFilter) => {
+  const dataFound = await dao.findOne(filterCriteria);
+
+  if (!dataFound) return { status: false, message: 'Not Found' };
+
+  return { status: true, data: dataFound };
+};
+
 const createEvent = async (params: SaveParams) => {
   const inserted = await dao.save(params);
 
@@ -24,5 +32,6 @@ const createEvent = async (params: SaveParams) => {
 
 export default {
   getEvents,
+  getEventByUUID,
   createEvent,
 };
