@@ -16,7 +16,7 @@ const db: DbConfigItemType = {
   db: defaultTo('kasmaji', process.env.DB_MAIN_DATABASE),
   dialect: 'mysql',
   host: defaultTo('127.0.0.1', process.env.DB_MAIN_HOST),
-  logging: process.env.DB_MAIN_LOGGING === 'true',
+  logging: true,
   ns: 'models',
   password: defaultTo('admin123', process.env.DB_MAIN_PASSWORD),
   port: process.env.DB_MAIN_PORT ? parseInt(process.env.DB_MAIN_PORT, 10) : 0,

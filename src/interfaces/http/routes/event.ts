@@ -1,6 +1,7 @@
 import express, { Request, Response } from 'express';
 import validator from './validation/event';
 import eventBiz from '../../../domain/event/business';
+import { log } from '../../../helper/logger';
 
 export default () => {
   const router = express.Router();
@@ -23,12 +24,9 @@ export default () => {
       async (req: Request, res: Response) => {
         const { tid } = res.locals;
 
-        const result = {
-          title: req.body.title,
-          status: true,
-          tid,
-        };
+        log('info', 'create-event-input', { body: req.body, tid });
 
+        const result = await eventBiz.createEvent(req.body);
         const statusCode = (!result.status) ? 500 : 200;
 
         return res.status(statusCode).json(result);
