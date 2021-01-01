@@ -13,15 +13,15 @@ export interface DbConfigItemType {
 }
 
 const db: DbConfigItemType = {
-  db: defaultTo(process.env.DB_MAIN_DATABASE, 'kasmaji'),
+  db: defaultTo('kasmaji', process.env.DB_MAIN_DATABASE),
   dialect: 'mysql',
-  host: defaultTo(process.env.DB_MAIN_HOST, '127.0.0.1'),
+  host: defaultTo('127.0.0.1', process.env.DB_MAIN_HOST),
   logging: process.env.DB_MAIN_LOGGING === 'true',
   ns: 'models',
-  password: defaultTo(process.env.DB_MAIN_PASSWORD, 'admin123'),
+  password: defaultTo('admin123', process.env.DB_MAIN_PASSWORD),
   port: process.env.DB_MAIN_PORT ? parseInt(process.env.DB_MAIN_PORT, 10) : 0,
-  timezone: defaultTo(process.env.DB_MAIN_TIMEZONE, '+07:00'),
-  username: defaultTo(process.env.DB_MAIN_USERNAME, 'root'),
+  timezone: defaultTo('+07:00', process.env.DB_MAIN_TIMEZONE),
+  username: defaultTo('root', process.env.DB_MAIN_USERNAME),
 };
 
 export default db;

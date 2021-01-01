@@ -6,7 +6,7 @@ import bodyParser from 'body-parser';
 import { log } from '../../helper/logger';
 import routes from './routes';
 
-dotenv.config({ path: `${__dirname}/.env` });
+dotenv.config();
 const app = express();
 const tid = uuid.v4();
 
