@@ -1,10 +1,11 @@
 import { defaultTo } from 'ramda';
+import { log } from '../../helper/logger';
 
 export interface DbConfigItemType {
     db: string;
     dialect: 'mysql' | 'postgres' | 'sqlite' | 'mariadb' | 'mssql';
     host: string;
-    logging: boolean;
+    logging: Function;
     ns: string;
     password: string;
     port: number;
@@ -16,7 +17,7 @@ const db: DbConfigItemType = {
   db: defaultTo(process.env.DB_MAIN_DATABASE, 'kasmaji'),
   dialect: 'mysql',
   host: defaultTo(process.env.DB_MAIN_HOST, '127.0.0.1'),
-  logging: true,
+  logging: (msg) => log('info', msg),
   ns: 'models',
   password: defaultTo(process.env.DB_MAIN_PASSWORD, 'admin123'),
   port: process.env.DB_MAIN_PORT ? parseInt(process.env.DB_MAIN_PORT, 10) : 0,

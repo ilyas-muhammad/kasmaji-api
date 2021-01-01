@@ -14,7 +14,7 @@ module.exports = (sequelize, DataTypes) => {
       createdAt: { field: 'created_at', type: DataTypes.DATE },
       updated_at: { field: 'updated_at', type: DataTypes.DATE },
       deletedAt: { field: 'deleted_at', type: DataTypes.DATE },
-      uuid: { field: 'uuid', types: DataTypes.UUID, defaultValue: DataTypes.UUIDV4 },
+      uuid: { field: 'uuid', type: DataTypes.UUID, defaultValue: DataTypes.UUIDV1 },
     },
     {
       tableName: 'events',
