@@ -6,7 +6,13 @@ const {
 } = models;
 
 const findAll = async (filterCriteria?: FindAllFilter) => {
-  const result = await model.events.findAll(filterCriteria);
+  const filter = {
+    where: {
+      status: 'ACTIVE',
+      ...filterCriteria,
+    },
+  };
+  const result = await model.events.findAll(filter);
 
   return result;
 };
