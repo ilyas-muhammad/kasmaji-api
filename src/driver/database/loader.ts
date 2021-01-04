@@ -29,6 +29,8 @@ export default (db: DbConfigItemType, files: string[]): any => {
       process.exit(0);
     });
 
+  sequelize.sync();
+
   const dir: string = `${__dirname}/${db.ns}`;
 
   const models = files

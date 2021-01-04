@@ -7,5 +7,4 @@ export interface Save {
 }
 
 export interface FindAllFilter {
-    offset: number,
 }

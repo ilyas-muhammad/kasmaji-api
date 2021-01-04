@@ -11,6 +11,12 @@ const findAll = async (filterCriteria?: FindAllFilter) => {
   return result;
 };
 
+const findOne = async (filterCriteria?: FindAllFilter) => {
+  const result = await model.events.findOne(filterCriteria);
+
+  return result;
+};
+
 const save = async (params: Save) => {
   const result = await model.events.create(params);
 
@@ -19,5 +25,6 @@ const save = async (params: Save) => {
 
 export default {
   findAll,
+  findOne,
   save,
 };

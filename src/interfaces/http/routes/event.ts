@@ -38,6 +38,18 @@ export default () => {
     );
 
   router
+    .route('/:uuid')
+    .get(
+      async (req: Request, res: Response) => {
+        const { uuid } = req.params;
+        const result = await eventBiz.getEventByUUID({ where: { uuid } });
+        const statusCode = (!result.status) ? 404 : 200;
+
+        return res.status(statusCode).json(result);
+      },
+    );
+
+  router
     .route('/')
     .post(
       upload.single('image'),
