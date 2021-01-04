@@ -1,6 +1,7 @@
-# Blys Verification API
+# Kasmaji API
 
 ## Install Package
+
 run `yarn install` to install the package
 
 ## Available Scripts
