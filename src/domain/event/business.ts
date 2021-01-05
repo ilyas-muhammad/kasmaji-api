@@ -34,11 +34,16 @@ const getEvents = async (getEventsParams: GetEventParams) => {
 };
 
 const getEventByUUID = async (uuid: string) => {
-  const dataFound = await dao.findAll(null, { uuid });
+  const pagination = {
+    limit: 1,
+    skip: 0,
+  };
+
+  const dataFound = await dao.findAll(pagination, { uuid });
 
   if (!dataFound) return { status: false, message: 'Not Found' };
 
-  return { status: true, data: dataFound };
+  return { status: true, data: dataFound.rows[0] };
 };
 
 const createEvent = async (params: SaveParams) => {
