@@ -1,4 +1,5 @@
 import { defaultTo } from 'ramda';
+import { Op } from 'sequelize';
 import dao from './dao';
 import { FindAllFilter, Save as SaveParams, GetEventParams } from './types';
 import utils from './utils';
@@ -41,9 +42,35 @@ const deleteEventByUUID = async (uuid: string) => {
   return { status: true, message: 'OK' };
 };
 
+const getNearestEvents = async () => {
+  const paginate = {
+    skip: 0,
+    limit: 5,
+  };
+
+  const filter = {
+    date: {
+      [Op.gte]: new Date(),
+    },
+  };
+
+  const sort = [
+    ['date', 'ASC'],
+  ];
+
+  const events = await dao.findAll(paginate, filter, sort);
+
+  if (!events) return { status: false, message: 'Not Found' };
+
+  const dataWithPagination = utils.getPagingData(events, paginate.skip, paginate.limit);
+
+  return { status: true, ...dataWithPagination };
+};
+
 export default {
   getEvents,
   getEventByUUID,
   createEvent,
   deleteEventByUUID,
+  getNearestEvents,
 };

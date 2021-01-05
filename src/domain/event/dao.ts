@@ -5,16 +5,21 @@ const {
   main: model,
 } = models;
 
-const findAll = async (pagination?: Paginate, filterCriteria?: FindAllFilter) => {
-  const filter = {
+const findAll = async (
+  pagination?: Paginate,
+  filterCriteria?: FindAllFilter,
+  sortingCriteria?: Array<string[]>,
+) => {
+  const query = {
     limit: pagination.limit,
     offset: pagination.skip,
     where: {
       status: 'ACTIVE',
       ...filterCriteria,
     },
+    order: sortingCriteria,
   };
-  const result = await model.events.findAndCountAll(filter);
+  const result = await model.events.findAndCountAll(query);
 
   return result;
 };

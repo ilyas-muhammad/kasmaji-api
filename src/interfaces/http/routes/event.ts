@@ -38,12 +38,23 @@ export default () => {
     );
 
   router
-    .route('/:uuid')
+    .route('/:uuid([0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12})')
     .get(
       async (req: Request, res: Response) => {
         const { uuid } = req.params;
         const result = await eventBiz.getEventByUUID({ where: { uuid } });
         const statusCode = (!result.status) ? 404 : 200;
+
+        return res.status(statusCode).json(result);
+      },
+    );
+
+  router
+    .route('/nearest')
+    .get(
+      async (req: Request, res: Response) => {
+        const result = await eventBiz.getNearestEvents();
+        const statusCode = (!result.status) ? 400 : 200;
 
         return res.status(statusCode).json(result);
       },
