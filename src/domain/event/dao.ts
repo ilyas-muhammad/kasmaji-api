@@ -29,8 +29,20 @@ const save = async (params: Save) => {
   return result;
 };
 
+const softDelete = async (uuid: string) => {
+  const result = await model.events.update({
+    status: 'DELETED',
+    deletedAt: new Date(),
+  }, {
+    where: { uuid },
+  });
+
+  return result;
+};
+
 export default {
   findAll,
   findOne,
   save,
+  softDelete,
 };

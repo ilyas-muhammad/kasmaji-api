@@ -30,8 +30,17 @@ const createEvent = async (params: SaveParams) => {
   return { status: true, data: inserted };
 };
 
+const deleteEventByUUID = async (uuid: string) => {
+  const deleted = await dao.softDelete(uuid);
+
+  if (!deleted) return { status: false, message: 'DB Error' };
+
+  return { status: true, message: 'OK' };
+};
+
 export default {
   getEvents,
   getEventByUUID,
   createEvent,
+  deleteEventByUUID,
 };

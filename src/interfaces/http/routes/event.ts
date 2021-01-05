@@ -69,5 +69,17 @@ export default () => {
       },
     );
 
+  router
+    .route('/:uuid')
+    .delete(
+      async (req: Request, res: Response) => {
+        const { uuid } = req.params;
+        const result = await eventBiz.deleteEventByUUID(uuid);
+        const statusCode = (!result.status) ? 400 : 200;
+
+        return res.status(statusCode).json(result);
+      },
+    );
+
   return router;
 };
