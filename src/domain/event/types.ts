@@ -7,6 +7,7 @@ export interface Save {
 }
 
 export interface FindAllFilter {
+    uuid?: string;
 }
 
 export interface Paginate {

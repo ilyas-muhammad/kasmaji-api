@@ -19,12 +19,6 @@ const findAll = async (pagination?: Paginate, filterCriteria?: FindAllFilter) =>
   return result;
 };
 
-const findOne = async (filterCriteria?: FindAllFilter) => {
-  const result = await model.events.findOne(filterCriteria);
-
-  return result;
-};
-
 const save = async (params: Save) => {
   const result = await model.events.create(params);
 
@@ -44,7 +38,6 @@ const softDelete = async (uuid: string) => {
 
 export default {
   findAll,
-  findOne,
   save,
   softDelete,
 };

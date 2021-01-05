@@ -1,6 +1,6 @@
 import { defaultTo } from 'ramda';
 import dao from './dao';
-import { FindAllFilter, Save as SaveParams, GetEventParams } from './types';
+import { Save as SaveParams, GetEventParams } from './types';
 import utils from './utils';
 
 const getEvents = async (getEventsParams: GetEventParams) => {
@@ -17,8 +17,8 @@ const getEvents = async (getEventsParams: GetEventParams) => {
   return { status: true, ...dataWithPagination };
 };
 
-const getEventByUUID = async (filterCriteria?: FindAllFilter) => {
-  const dataFound = await dao.findOne(filterCriteria);
+const getEventByUUID = async (uuid: string) => {
+  const dataFound = await dao.findAll(null, { uuid });
 
   if (!dataFound) return { status: false, message: 'Not Found' };
 

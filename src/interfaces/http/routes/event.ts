@@ -42,7 +42,7 @@ export default () => {
     .get(
       async (req: Request, res: Response) => {
         const { uuid } = req.params;
-        const result = await eventBiz.getEventByUUID({ where: { uuid } });
+        const result = await eventBiz.getEventByUUID(uuid);
         const statusCode = (!result.status) ? 404 : 200;
 
         return res.status(statusCode).json(result);
