@@ -1,4 +1,6 @@
-import { defaultTo } from 'ramda';
+import { defaultTo, isNil } from 'ramda';
+import { Op } from 'sequelize';
+import moment from 'moment';
 import dao from './dao';
 import { Save as SaveParams, GetEventParams } from './types';
 import utils from './utils';
@@ -9,7 +11,21 @@ const getEvents = async (getEventsParams: GetEventParams) => {
     skip: defaultTo(0, +getEventsParams.page),
   };
 
-  const dataFound = await dao.findAll(pagination);
+  const date = defaultTo(getEventsParams.date, getEventsParams.month);
+  const filter = {
+    date: {
+      [Op.between]: [
+        moment(date)
+          .startOf(!isNil(getEventsParams.month) ? 'month' : 'day')
+          .toDate(),
+        moment(date)
+          .endOf(!isNil(getEventsParams.month) ? 'month' : 'day')
+          .toDate(),
+      ],
+    },
+  };
+
+  const dataFound = await dao.findAll(pagination, !isNil(date) ? filter : null);
 
   if (!dataFound) return { status: false, data: [], message: 'DB Error' };
 
