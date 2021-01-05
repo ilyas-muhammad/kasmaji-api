@@ -1,18 +1,20 @@
 import models from '../../driver/database';
-import { FindAllFilter, Save } from './types';
+import { FindAllFilter, Save, Paginate } from './types';
 
 const {
   main: model,
 } = models;
 
-const findAll = async (filterCriteria?: FindAllFilter) => {
+const findAll = async (pagination?: Paginate, filterCriteria?: FindAllFilter) => {
   const filter = {
+    limit: pagination.limit,
+    offset: pagination.skip,
     where: {
       status: 'ACTIVE',
       ...filterCriteria,
     },
   };
-  const result = await model.events.findAll(filter);
+  const result = await model.events.findAndCountAll(filter);
 
   return result;
 };

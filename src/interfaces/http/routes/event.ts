@@ -30,7 +30,7 @@ export default () => {
     .route('/')
     .get(
       async (req: Request, res: Response) => {
-        const result = await eventBiz.getEvents();
+        const result = await eventBiz.getEvents({ ...req.body, ...req.query });
         const statusCode = (!result.status) ? 500 : 200;
 
         return res.status(statusCode).json(result);

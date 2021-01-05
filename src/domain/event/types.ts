@@ -8,3 +8,13 @@ export interface Save {
 
 export interface FindAllFilter {
 }
+
+export interface Paginate {
+    limit: number;
+    skip: number;
+}
+
+export interface GetEventParams {
+    page?: number;
+    size?: number;
+}
