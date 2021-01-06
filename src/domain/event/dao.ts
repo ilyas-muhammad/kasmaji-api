@@ -1,5 +1,7 @@
 import models from '../../driver/database';
-import { FindAllFilter, Save, Paginate } from './types';
+import {
+  FindAllFilter, FilterFindOne, Save, Paginate,
+} from './types';
 
 const {
   main: model,
@@ -24,6 +26,19 @@ const findAll = async (
   return result;
 };
 
+const findOne = async (filter: FilterFindOne) => {
+  const query = {
+    where: {
+      status: 'ACTIVE',
+      ...filter,
+    },
+  };
+
+  const result = await model.events.findOne(query);
+
+  return result;
+};
+
 const save = async (params: Save) => {
   const result = await model.events.create(params);
 
@@ -43,6 +58,7 @@ const softDelete = async (uuid: string) => {
 
 export default {
   findAll,
+  findOne,
   save,
   softDelete,
 };

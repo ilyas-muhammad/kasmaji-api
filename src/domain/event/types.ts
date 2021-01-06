@@ -7,8 +7,11 @@ export interface Save {
 }
 
 export interface FindAllFilter {
-    uuid?: string;
     date?: any;
+}
+
+export interface FilterFindOne {
+    uuid: string;
 }
 
 export interface Paginate {

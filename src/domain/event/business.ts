@@ -12,7 +12,7 @@ const getEvents = async (getEventsParams: GetEventParams) => {
   };
 
   const date = defaultTo(getEventsParams.date, getEventsParams.month);
-  const filter = {
+  const dateFilter = {
     date: {
       [Op.between]: [
         moment(date)
@@ -25,7 +25,11 @@ const getEvents = async (getEventsParams: GetEventParams) => {
     },
   };
 
-  const dataFound = await dao.findAll(pagination, !isNil(date) ? filter : null);
+  const filter = {};
+
+  if (!isNil(date)) Object.assign(filter, dateFilter);
+
+  const dataFound = await dao.findAll(pagination, filter);
 
   if (!dataFound) return { status: false, data: [], message: 'DB Error' };
 
@@ -34,16 +38,11 @@ const getEvents = async (getEventsParams: GetEventParams) => {
 };
 
 const getEventByUUID = async (uuid: string) => {
-  const pagination = {
-    limit: 1,
-    skip: 0,
-  };
-
-  const dataFound = await dao.findAll(pagination, { uuid });
+  const dataFound = await dao.findOne({ uuid });
 
   if (!dataFound) return { status: false, message: 'Not Found' };
 
-  return { status: true, data: dataFound.rows[0] };
+  return { status: true, data: dataFound };
 };
 
 const createEvent = async (params: SaveParams) => {
