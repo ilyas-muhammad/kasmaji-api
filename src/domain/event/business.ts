@@ -1,7 +1,8 @@
-import { defaultTo } from 'ramda';
+import { defaultTo, isNil } from 'ramda';
 import { Op } from 'sequelize';
+import moment from 'moment';
 import dao from './dao';
-import { FindAllFilter, Save as SaveParams, GetEventParams } from './types';
+import { Save as SaveParams, GetEventParams } from './types';
 import utils from './utils';
 
 const getEvents = async (getEventsParams: GetEventParams) => {
@@ -10,7 +11,25 @@ const getEvents = async (getEventsParams: GetEventParams) => {
     skip: defaultTo(0, +getEventsParams.page),
   };
 
-  const dataFound = await dao.findAll(pagination);
+  const date = defaultTo(getEventsParams.date, getEventsParams.month);
+  const dateFilter = {
+    date: {
+      [Op.between]: [
+        moment(date)
+          .startOf(!isNil(getEventsParams.month) ? 'month' : 'day')
+          .toDate(),
+        moment(date)
+          .endOf(!isNil(getEventsParams.month) ? 'month' : 'day')
+          .toDate(),
+      ],
+    },
+  };
+
+  const filter = {};
+
+  if (!isNil(date)) Object.assign(filter, dateFilter);
+
+  const dataFound = await dao.findAll(pagination, filter);
 
   if (!dataFound) return { status: false, data: [], message: 'DB Error' };
 
@@ -18,8 +37,8 @@ const getEvents = async (getEventsParams: GetEventParams) => {
   return { status: true, ...dataWithPagination };
 };
 
-const getEventByUUID = async (filterCriteria?: FindAllFilter) => {
-  const dataFound = await dao.findOne(filterCriteria);
+const getEventByUUID = async (uuid: string) => {
+  const dataFound = await dao.findOne({ uuid });
 
   if (!dataFound) return { status: false, message: 'Not Found' };
 

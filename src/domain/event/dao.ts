@@ -1,5 +1,7 @@
 import models from '../../driver/database';
-import { FindAllFilter, Save, Paginate } from './types';
+import {
+  FindAllFilter, FilterFindOne, Save, Paginate,
+} from './types';
 
 const {
   main: model,
@@ -24,8 +26,15 @@ const findAll = async (
   return result;
 };
 
-const findOne = async (filterCriteria?: FindAllFilter) => {
-  const result = await model.events.findOne(filterCriteria);
+const findOne = async (filter: FilterFindOne) => {
+  const query = {
+    where: {
+      status: 'ACTIVE',
+      ...filter,
+    },
+  };
+
+  const result = await model.events.findOne(query);
 
   return result;
 };

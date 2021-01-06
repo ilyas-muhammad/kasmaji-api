@@ -7,6 +7,11 @@ export interface Save {
 }
 
 export interface FindAllFilter {
+    date?: any;
+}
+
+export interface FilterFindOne {
+    uuid: string;
 }
 
 export interface Paginate {
@@ -17,4 +22,6 @@ export interface Paginate {
 export interface GetEventParams {
     page?: number;
     size?: number;
+    date?: string;
+    month?: string;
 }
