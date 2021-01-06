@@ -13,7 +13,14 @@ const getDetailEvent = validate([
   body('id').isNumeric(),
 ]);
 
+const joinEvent = validate([
+  body('name').isString().withMessage('name is required'),
+  body('phone').isString().withMessage('phone is required'),
+  body('email').isEmail().withMessage('email is required'),
+]);
+
 export default {
   createEvent,
   getDetailEvent,
+  joinEvent,
 };

@@ -5,10 +5,12 @@ import loader from './loader';
 interface MainType {
   sequelize: any;
   events: any;
+  participants: any;
 }
 
 const main: MainType = loader(dbConfig, [
   'events',
+  'participants',
 ]);
 
 interface ModelsType {

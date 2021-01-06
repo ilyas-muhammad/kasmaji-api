@@ -25,3 +25,9 @@ export interface GetEventParams {
     date?: string;
     month?: string;
 }
+
+export interface JoinParams {
+    name: string;
+    phone: string;
+    email: string;
+}

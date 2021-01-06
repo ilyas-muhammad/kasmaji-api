@@ -2,7 +2,7 @@ import { defaultTo, isNil } from 'ramda';
 import { Op } from 'sequelize';
 import moment from 'moment';
 import dao from './dao';
-import { Save as SaveParams, GetEventParams } from './types';
+import { Save as SaveParams, GetEventParams, JoinParams } from './types';
 import utils from './utils';
 
 const getEvents = async (getEventsParams: GetEventParams) => {
@@ -86,10 +86,19 @@ const getNearestEvents = async () => {
   return { status: true, ...dataWithPagination };
 };
 
+const joinEvent = async (params: JoinParams, uuid: string) => {
+  const deleted = await dao.insertParticipant(params, uuid);
+
+  if (!deleted) return { status: false, message: 'DB Error' };
+
+  return { status: true, message: 'OK' };
+};
+
 export default {
   getEvents,
   getEventByUUID,
   createEvent,
   deleteEventByUUID,
   getNearestEvents,
+  joinEvent,
 };
