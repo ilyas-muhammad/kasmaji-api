@@ -38,7 +38,7 @@ const getEvents = async (getEventsParams: GetEventParams) => {
 };
 
 const getEventByUUID = async (uuid: string) => {
-  const dataFound = await dao.findOne({ uuid });
+  const dataFound = await dao.findOne({ uuid }, true);
 
   if (!dataFound) return { status: false, message: 'Not Found' };
 
@@ -87,9 +87,17 @@ const getNearestEvents = async () => {
 };
 
 const joinEvent = async (params: JoinParams, uuid: string) => {
-  const deleted = await dao.insertParticipant(params, uuid);
+  const eventFound = await dao.findOne({ uuid });
 
-  if (!deleted) return { status: false, message: 'DB Error' };
+  if (!eventFound) return { status: false, message: 'Event not found!' };
+
+  Object.assign(params, {
+    event_id: eventFound.dataValues.id,
+  });
+
+  const inserted = await dao.insertParticipant(params);
+
+  if (!inserted) return { status: false, message: 'DB Error' };
 
   return { status: true, message: 'OK' };
 };

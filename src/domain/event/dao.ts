@@ -26,13 +26,22 @@ const findAll = async (
   return result;
 };
 
-const findOne = async (filter: FilterFindOne) => {
+const findOne = async (filter: FilterFindOne, withParticipants?: Boolean) => {
   const query = {
     where: {
       status: 'ACTIVE',
       ...filter,
     },
   };
+
+  if (withParticipants) {
+    Object.assign(query, {
+      include: [{
+        model: model.participants,
+        as: 'participants',
+      }],
+    });
+  }
 
   const result = await model.events.findOne(query);
 
@@ -56,10 +65,8 @@ const softDelete = async (uuid: string) => {
   return result;
 };
 
-const insertParticipant = async (params: JoinParams, uuid: string) => {
-  const event = await model.events.findOne({ where: { uuid } });
-
-  const data = { ...params, event_id: event.id };
+const insertParticipant = async (params: JoinParams) => {
+  const data = { ...params };
 
   const participant = await model.participants.create(data);
 

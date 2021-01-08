@@ -14,6 +14,7 @@ const getDetailEvent = validate([
 ]);
 
 const joinEvent = validate([
+  body('eventId').isString().withMessage('eventId is required'),
   body('name').isString().withMessage('name is required'),
   body('phone').isString().withMessage('phone is required'),
   body('email').isEmail().withMessage('email is required'),

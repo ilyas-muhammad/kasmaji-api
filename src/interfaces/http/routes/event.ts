@@ -93,11 +93,11 @@ export default () => {
     );
 
   router
-    .route('/:uuid([0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12})/join')
+    .route('/join')
     .post(
       validator.joinEvent,
       async (req: Request, res: Response) => {
-        const { uuid } = req.params;
+        const { eventId: uuid } = req.body;
         const result = await eventBiz.joinEvent({ ...req.body }, uuid);
 
         const statusCode = (!result.status) ? 500 : 200;

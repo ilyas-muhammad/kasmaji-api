@@ -21,5 +21,9 @@ module.exports = (sequelize, DataTypes) => {
     },
   );
 
+  model.associate = (models) => {
+    model.hasMany(models.participants, { foreignKey: 'event_id' });
+  };
+
   return model;
 };

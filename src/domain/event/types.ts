@@ -30,4 +30,5 @@ export interface JoinParams {
     name: string;
     phone: string;
     email: string;
+    eventId: string;
 }
