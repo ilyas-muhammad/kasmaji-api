@@ -1,6 +1,6 @@
 import models from '../../driver/database';
 import {
-  FindAllFilter, FilterFindOne, Save, Paginate,
+  FindAllFilter, FilterFindOne, Save, Paginate, JoinParams,
 } from './types';
 
 const {
@@ -56,9 +56,20 @@ const softDelete = async (uuid: string) => {
   return result;
 };
 
+const insertParticipant = async (params: JoinParams, uuid: string) => {
+  const event = await model.events.findOne({ where: { uuid } });
+
+  const data = { ...params, event_id: event.id };
+
+  const participant = await model.participants.create(data);
+
+  return participant;
+};
+
 export default {
   findAll,
   findOne,
   save,
   softDelete,
+  insertParticipant,
 };
