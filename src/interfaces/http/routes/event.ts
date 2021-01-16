@@ -27,8 +27,8 @@ export default () => {
   const upload = multer({ storage, fileFilter });
 
   router
-    .route('/')
     .get(
+      '/',
       async (req: Request, res: Response) => {
         const result = await eventBiz.getEvents({ ...req.body, ...req.query });
         const statusCode = (!result.status) ? 500 : 200;
@@ -38,8 +38,8 @@ export default () => {
     );
 
   router
-    .route('/:uuid([0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12})')
     .get(
+      '/:uuid([0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12})',
       async (req: Request, res: Response) => {
         const { uuid } = req.params;
         const result = await eventBiz.getEventByUUID(uuid);
@@ -50,8 +50,8 @@ export default () => {
     );
 
   router
-    .route('/nearest')
     .get(
+      '/nearest',
       async (req: Request, res: Response) => {
         const result = await eventBiz.getNearestEvents();
         const statusCode = (!result.status) ? 400 : 200;
@@ -61,8 +61,8 @@ export default () => {
     );
 
   router
-    .route('/')
     .post(
+      '/',
       upload.single('image'),
       validator.createEvent,
       async (req: Request, res: Response) => {
@@ -81,8 +81,8 @@ export default () => {
     );
 
   router
-    .route('/:uuid')
     .delete(
+      '/:uuid',
       async (req: Request, res: Response) => {
         const { uuid } = req.params;
         const result = await eventBiz.deleteEventByUUID(uuid);
@@ -93,8 +93,8 @@ export default () => {
     );
 
   router
-    .route('/join')
     .post(
+      '/join',
       validator.joinEvent,
       async (req: Request, res: Response) => {
         const { eventId: uuid } = req.body;
