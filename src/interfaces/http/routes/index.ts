@@ -46,7 +46,7 @@ export default (app: Express) => {
       });
 
   app
-    .get('event/:uuid([0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12})',
+    .get('/event/:uuid([0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12})',
       async (req: Request, res: Response) => {
         const { uuid } = req.params;
         const result = await eventBiz.getEventByUUID(uuid);
@@ -56,7 +56,7 @@ export default (app: Express) => {
       });
 
   app
-    .get('event/nearest',
+    .get('/event/nearest',
       async (req: Request, res: Response) => {
         const result = await eventBiz.getNearestEvents();
         const statusCode = (!result.status) ? 400 : 200;
@@ -65,7 +65,7 @@ export default (app: Express) => {
       });
 
   app
-    .post('event/',
+    .post('/event',
       upload.single('image'),
       validator.createEvent,
       async (req: Request, res: Response) => {
@@ -83,7 +83,7 @@ export default (app: Express) => {
       });
 
   app
-    .delete('event/:uuid',
+    .delete('/event/:uuid',
       async (req: Request, res: Response) => {
         const { uuid } = req.params;
         const result = await eventBiz.deleteEventByUUID(uuid);
@@ -93,7 +93,7 @@ export default (app: Express) => {
       });
 
   app
-    .post('event/join',
+    .post('/event/join',
       validator.joinEvent,
       async (req: Request, res: Response) => {
         const { eventId: uuid } = req.body;
