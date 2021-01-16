@@ -4,4 +4,3 @@ node_modules
 build
 jest_html_reporters.html
 .env
-public/
