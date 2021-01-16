@@ -11,7 +11,7 @@
     "lint": "eslint src/*/*/*/*/** tests/** --fix --cache",
     "build": "rimraf ./build && tsc",
     "dev": "NODE_ENV=development ts-node-dev --inspect --respawn --transpile-only src/interfaces/http/index.ts",
-    "start": "node -r dotenv/config build/interfaces/http/index.js",
+    "start": "node -r dotenv/config ./build/interfaces/http/index.js",
     "build-and-start": "yarn build && node ./build/interfaces/http/index.js",
     "db:migrate": "NODE_ENV=development npx sequelize-cli db:migrate",
     "heroku-prebuild": "export NPM_CONFIG_PRODUCTION=false; export NODE_ENV=; NPM_CONFIG_PRODUCTION=false NODE_ENV=development yarn install --only=dev --dev",
