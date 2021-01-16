@@ -16,7 +16,7 @@ export default (db: DbConfigItemType, files: string[]): any => {
       timestamps: false, // true by default
     },
     timezone: db.timezone,
-    logging: db.logging,
+    logging: db.logging as boolean | ((sql: string, timing?: number) => void),
   });
 
   sequelize.authenticate()

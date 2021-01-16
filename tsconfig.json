@@ -9,9 +9,9 @@
     "outDir": "./build",
     "removeComments": true,
     "strict": true,
-    "noImplicitAny": true,
-    "strictNullChecks": true,
-    "strictFunctionTypes": true,
+    "noImplicitAny": false,
+    "strictNullChecks": false,
+    "strictFunctionTypes": false,
     "baseUrl": "./",
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true
