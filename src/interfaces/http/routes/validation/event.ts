@@ -7,6 +7,9 @@ const createEvent = validate([
   // body('image').isMimeType().withMessage('image is required'),
   body('date').isISO8601().withMessage('should receive date with format yyyy-mm-dd hh:mm:ss'),
   body('location').optional().isString(),
+  body('contactPerson').not().isEmpty().withMessage('contact person is required'),
+  body('startTime').matches(new RegExp(/^(10|11|12|[1-9]):[0-5][0-9]$/)),
+  body('endTime').matches(new RegExp(/^(10|11|12|[1-9]):[0-5][0-9]$/)),
 ]);
 
 const getDetailEvent = validate([

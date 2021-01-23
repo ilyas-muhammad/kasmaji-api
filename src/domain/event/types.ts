@@ -4,6 +4,9 @@ export interface Save {
     date: Date;
     location: string;
     image: string;
+    contactPerson: string;
+    startTime: string;
+    endTime: string;
 }
 
 export interface FindAllFilter {

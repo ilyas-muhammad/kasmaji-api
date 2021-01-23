@@ -27,6 +27,18 @@ module.exports = {
         allowNull: false,
         type: Sequelize.STRING,
       },
+      contactPerson: {
+        field: 'contact_person',
+        type: Sequelize.STRING,
+      },
+      startTime: {
+        field: 'start_time',
+        type: Sequelize.STRING,
+      },
+      endTime: {
+        field: 'end_time',
+        type: Sequelize.STRING,
+      },
       status: {
         allowNull: false,
         type: Sequelize.STRING,
