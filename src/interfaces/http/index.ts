@@ -5,6 +5,7 @@ import * as uuid from 'uuid';
 import bodyParser from 'body-parser';
 import compression from 'compression';
 import helmet from 'helmet';
+import path from 'path';
 import { log } from '../../helper/logger';
 import routes from './routes';
 
@@ -28,7 +29,7 @@ app.use((req, res, next) => {
   next();
 });
 
-app.use(express.static('public'));
+app.use(express.static(path.join(process.cwd(), 'public')));
 app.use(cors());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json({ limit: '3mb', type: 'application/json' }));
