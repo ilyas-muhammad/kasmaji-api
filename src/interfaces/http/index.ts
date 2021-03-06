@@ -17,14 +17,6 @@ app.use(cors({ origin: '*' }));
 
 const tid = uuid.v4();
 
-app.use((req, res, next) => {
-  res.header('Access-Control-Allow-Methods', 'PUT, POST, GET, DELETE, OPTIONS');
-  res.header('Kasmaji-tid', tid);
-  res.locals.tid = tid;
-
-  next();
-});
-
 app.use(express.static(path.join(process.cwd(), 'public')));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json({ limit: '3mb', type: 'application/json' }));
