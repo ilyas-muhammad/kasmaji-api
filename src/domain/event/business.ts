@@ -42,7 +42,7 @@ const getEventByUUID = async (uuid: string) => {
 
   if (!dataFound) return { status: false, message: 'Not Found' };
 
-  return { status: true, data: dataFound };
+  return { status: true, data: utils.mapEventData(dataFound) };
 };
 
 const createEvent = async (params: SaveParams) => {
@@ -50,7 +50,7 @@ const createEvent = async (params: SaveParams) => {
 
   if (!inserted) return { status: false, message: 'DB Error' };
 
-  return { status: true, data: inserted };
+  return { status: true, data: utils.mapEventData(inserted) };
 };
 
 const deleteEventByUUID = async (uuid: string) => {

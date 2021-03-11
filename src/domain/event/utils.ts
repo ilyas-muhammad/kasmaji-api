@@ -15,6 +15,14 @@ const getPagingData = (data, page, limit) => {
   };
 };
 
+const mapEventData = (event) => {
+  const result = event.dataValues;
+  result.imageUrl = process.env.APP_URI + event.dataValues.image;
+
+  return result;
+};
+
 export default {
   getPagingData,
+  mapEventData,
 };
