@@ -72,7 +72,7 @@ export default (app: Express) => {
         const { tid } = res.locals;
         log('info', 'create-event-input', { body: req.body, tid });
 
-        const targetPath = `public/images/${req.file.originalname}`;
+        const targetPath = `images/${req.file.filename}`;
 
         const params = { ...req.body, image: targetPath };
         const result = await eventBiz.createEvent(params);
